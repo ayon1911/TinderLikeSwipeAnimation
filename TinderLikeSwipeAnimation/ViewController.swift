@@ -11,25 +11,33 @@ import UIKit
 class ViewController: UIViewController {
     let topNavigationStackView = TopNavigationStackView()
     let bottomStackView = HomeBottomControlsStackView()
-    let blueView = UIView()
+    let cardDeckView = UIView()
 
-   
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        blueView.backgroundColor = .blue
-        
+    
         setupMainStackView()
+        
+        setupCardView()
     }
 
     //MARK: - Fileprivate
     fileprivate func setupMainStackView() {
-        let mainStackView = UIStackView(arrangedSubviews: [topNavigationStackView, blueView , bottomStackView])
+        let mainStackView = UIStackView(arrangedSubviews: [topNavigationStackView, cardDeckView , bottomStackView])
         mainStackView.axis = .vertical
         
         view.addSubview(mainStackView)
         mainStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
+        mainStackView.isLayoutMarginsRelativeArrangement = true
+        mainStackView.layoutMargins = .init(top: 0, left: 12, bottom: 0, right: 12)
+        mainStackView.bringSubviewToFront(cardDeckView)
+       
+    }
+    
+    fileprivate func setupCardView() {
+        let cardView = CardView()
+        cardDeckView.addSubview(cardView)
+        cardView.fillSuperview()
     }
 }
 
