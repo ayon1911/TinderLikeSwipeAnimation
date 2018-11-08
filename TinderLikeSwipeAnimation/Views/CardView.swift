@@ -10,9 +10,18 @@ import UIKit
 
 class CardView: UIView {
     //MARK:- variables
+    
+    var cardViewModel: CardViewModel! {
+        didSet {
+            imageView.image = UIImage(named: cardViewModel.imageName)
+            informationLabel.attributedText = cardViewModel.attributedtext
+            informationLabel.textAlignment = cardViewModel.textAlligenment
+        }
+    }
+    
     fileprivate let threshlod: CGFloat = 80
-    let imageView = UIImageView(image: #imageLiteral(resourceName: "gambit"))
-    let informationLabel = UILabel()
+    fileprivate let imageView = UIImageView(image: #imageLiteral(resourceName: "gambit"))
+    fileprivate let informationLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -71,8 +80,6 @@ class CardView: UIView {
                 self.removeFromSuperview()
             }
         })
-        
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

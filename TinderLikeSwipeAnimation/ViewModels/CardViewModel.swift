@@ -9,9 +9,12 @@
 import Foundation
 import UIKit
 
+protocol ProducesCarViewModel {
+    func toCardViewModel() -> CardViewModel
+}
+
 struct CardViewModel {
     let imageName: String
     let attributedtext: NSAttributedString
     let textAlligenment: NSTextAlignment
-    
 }

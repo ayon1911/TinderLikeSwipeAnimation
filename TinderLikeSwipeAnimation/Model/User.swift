@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct User {
+struct User: ProducesCarViewModel {
     //defining user property
     let name: String
     let age: Int
