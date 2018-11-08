@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct User {
     //defining user property
@@ -14,4 +15,12 @@ struct User {
     let age: Int
     let profession: String
     let imageName: String
+    
+    func toCardViewModel() -> CardViewModel {
+        let attributedText = NSMutableAttributedString(string: name, attributes: [.font: UIFont(name: "AvenirNext-Bold", size: 24)!])
+        attributedText.append(NSAttributedString(string: "  \(age)", attributes: [.font: UIFont(name: "AvenirNext-Medium", size: 18)!]))
+        attributedText.append(NSAttributedString(string: "  \n\(profession)", attributes: [.font: UIFont(name: "AvenirNext-Medium", size: 16)!]))
+        
+        return CardViewModel(imageName: imageName, attributedtext: attributedText, textAlligenment: .left)
+    }
 }
