@@ -16,14 +16,15 @@ class HomeController: UIViewController {
     
     let cardViewModels: [CardViewModel] = {
         let producers = [
-                    User(name: "Gambit", age: 34, profession: "Card Strickstar", imageName: "gambit"),
-                    User(name: "Logan", age: 100, profession: "Army Person", imageName: "logan"),
-                    User(name: "Perter", age: 32, profession: "Camera Man", imageName: "peter"),
-                    User(name: "Berry", age: 25, profession: "Student", imageName: "flash"),
-                    User(name: "Deadpool", age: 45, profession: "Idiocracy", imageName: "deadpool"),
-                    User(name: "Bruce Wayne", age: 60, profession: "Billionaire", imageName: "batman"),
-                    User(name: "Dr.Strange", age: 42, profession: "Doctor", imageName: "strange"),
-                    Advertiser(title: "Black Panther", brandName: "It's so Black", posterPhotoName: "panther")
+                    User(name: "Gambit", age: 34, profession: "Card Strickstar", imageNames: ["gambit"]),
+                    User(name: "Logan", age: 100, profession: "Army Person", imageNames: ["logan"]),
+                    User(name: "Perter", age: 32, profession: "Camera Man", imageNames: ["peter"]),
+                    Advertiser(title: "Black Panther", brandName: "It's so Black", posterPhotoName: "panther"),
+                    User(name: "Deadpool", age: 45, profession: "Idiocracy", imageNames: ["deadpool"]),
+                    User(name: "Bruce Wayne", age: 60, profession: "Billionaire", imageNames: ["batman"]),
+                    User(name: "Berry", age: 25, profession: "Student", imageNames: ["flash", "flash2", "flash3"]),
+                    User(name: "Dr.Strange", age: 42, profession: "Doctor", imageNames: ["strange", "strange2", "strange3"])
+                    
         ] as [ProducesCarViewModel]
         let viewModels = producers.map({ return $0.toCardViewModel()})
         return viewModels
