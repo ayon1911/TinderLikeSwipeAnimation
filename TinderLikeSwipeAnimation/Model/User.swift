@@ -21,6 +21,6 @@ struct User: ProducesCarViewModel {
         attributedText.append(NSAttributedString(string: "  \(age)", attributes: [.font: UIFont(name: "AvenirNext-Medium", size: 18)!]))
         attributedText.append(NSAttributedString(string: "  \n\(profession)", attributes: [.font: UIFont(name: "AvenirNext-Medium", size: 16)!]))
         
-        return CardViewModel(imageNames: imageNames, attributedtext: attributedText, textAlligenment: .left)
+        return CardViewModel(imageNames: imageNames, attributedText: attributedText, textAlligenment: .left)
     }
 }
