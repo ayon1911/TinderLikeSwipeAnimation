@@ -32,7 +32,9 @@ class HomeController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
+        topNavigationStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
+        
         setupMainStackView()
         setupCardView()
     }
@@ -48,7 +50,6 @@ class HomeController: UIViewController {
         mainStackView.layoutMargins = .init(top: 0, left: 12, bottom: 0, right: 12)
         mainStackView.bringSubviewToFront(cardDeckView)
     }
-    
     fileprivate func setupCardView() {
         cardViewModels.forEach { (cardViewModel) in
             let cardView = CardView(frame: .zero)
@@ -56,6 +57,11 @@ class HomeController: UIViewController {
             cardDeckView.addSubview(cardView)
             cardView.fillSuperview()
         }
+    }
+    //MARK:- handler functions
+    @objc fileprivate func handleSettings() {
+        let registrationVC = RegistrationVC()
+        present(registrationVC, animated: true, completion: nil)
     }
 }
 

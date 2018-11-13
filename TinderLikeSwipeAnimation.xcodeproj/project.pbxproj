@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B62E156A219994F30011A05E /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62E1569219994F30011A05E /* RegistrationVC.swift */; };
+		B62E156C21999C240011A05E /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62E156B21999C240011A05E /* CustomTextField.swift */; };
 		B69BE21E2192D46B007994D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69BE21D2192D46B007994D1 /* AppDelegate.swift */; };
 		B69BE2202192D46B007994D1 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69BE21F2192D46B007994D1 /* HomeController.swift */; };
 		B69BE2232192D46B007994D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B69BE2212192D46B007994D1 /* Main.storyboard */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B62E1569219994F30011A05E /* RegistrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationVC.swift; sourceTree = "<group>"; };
+		B62E156B21999C240011A05E /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		B69BE21A2192D46B007994D1 /* TinderLikeSwipeAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinderLikeSwipeAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B69BE21D2192D46B007994D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B69BE21F2192D46B007994D1 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -96,6 +100,7 @@
 				B69BE2332192DBAF007994D1 /* HomeBottomControlsStackView.swift */,
 				B69BE2352192DFA1007994D1 /* TopNavigationStackView.swift */,
 				B69BE237219345DC007994D1 /* CardView.swift */,
+				B62E156B21999C240011A05E /* CustomTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -113,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				B69BE21F2192D46B007994D1 /* HomeController.swift */,
+				B62E1569219994F30011A05E /* RegistrationVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -197,8 +203,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B69BE2202192D46B007994D1 /* HomeController.swift in Sources */,
+				B62E156C21999C240011A05E /* CustomTextField.swift in Sources */,
 				B69BE2342192DBAF007994D1 /* HomeBottomControlsStackView.swift in Sources */,
 				B69BE24121948C0E007994D1 /* Advertiser.swift in Sources */,
+				B62E156A219994F30011A05E /* RegistrationVC.swift in Sources */,
 				B69BE21E2192D46B007994D1 /* AppDelegate.swift in Sources */,
 				B69BE2302192D5BF007994D1 /* Extensions+UIView.swift in Sources */,
 				B69BE23F21948173007994D1 /* CardViewModel.swift in Sources */,

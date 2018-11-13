@@ -24,6 +24,7 @@ class CardViewModel {
         self.attributedtext = attributedText
         self.textAlligenment = textAlligenment
     }
+    //variable for reactive state change
     var imageIndexObserver: ((Int, UIImage?) -> ())?
     
     fileprivate var imageIndex = 0 {
