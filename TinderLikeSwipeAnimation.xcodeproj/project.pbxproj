@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B60C7474219DEB0A00391F85 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60C7473219DEB0A00391F85 /* RegistrationViewModel.swift */; };
 		B62E156A219994F30011A05E /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62E1569219994F30011A05E /* RegistrationVC.swift */; };
 		B62E156C21999C240011A05E /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62E156B21999C240011A05E /* CustomTextField.swift */; };
 		B69BE21E2192D46B007994D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69BE21D2192D46B007994D1 /* AppDelegate.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B60C7473219DEB0A00391F85 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		B62E1569219994F30011A05E /* RegistrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationVC.swift; sourceTree = "<group>"; };
 		B62E156B21999C240011A05E /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		B69BE21A2192D46B007994D1 /* TinderLikeSwipeAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinderLikeSwipeAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				B69BE23E21948173007994D1 /* CardViewModel.swift */,
+				B60C7473219DEB0A00391F85 /* RegistrationViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B69BE2202192D46B007994D1 /* HomeController.swift in Sources */,
+				B60C7474219DEB0A00391F85 /* RegistrationViewModel.swift in Sources */,
 				B62E156C21999C240011A05E /* CustomTextField.swift in Sources */,
 				B69BE2342192DBAF007994D1 /* HomeBottomControlsStackView.swift in Sources */,
 				B69BE24121948C0E007994D1 /* Advertiser.swift in Sources */,
