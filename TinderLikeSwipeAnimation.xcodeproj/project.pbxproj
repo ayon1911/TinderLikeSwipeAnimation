@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A7D16BA8D7285112CE7A9633 /* Pods_TinderLikeSwipeAnimation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F499B13F50DE6F2F834FD610 /* Pods_TinderLikeSwipeAnimation.framework */; };
 		B60C7474219DEB0A00391F85 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60C7473219DEB0A00391F85 /* RegistrationViewModel.swift */; };
+		B61D0F01219DFB4800368931 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B61D0F00219DFB4800368931 /* GoogleService-Info.plist */; };
 		B62E156A219994F30011A05E /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62E1569219994F30011A05E /* RegistrationVC.swift */; };
 		B62E156C21999C240011A05E /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62E156B21999C240011A05E /* CustomTextField.swift */; };
 		B69BE21E2192D46B007994D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69BE21D2192D46B007994D1 /* AppDelegate.swift */; };
@@ -25,7 +27,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2329554194D97AE592B07949 /* Pods-TinderLikeSwipeAnimation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinderLikeSwipeAnimation.release.xcconfig"; path = "Pods/Target Support Files/Pods-TinderLikeSwipeAnimation/Pods-TinderLikeSwipeAnimation.release.xcconfig"; sourceTree = "<group>"; };
 		B60C7473219DEB0A00391F85 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		B61D0F00219DFB4800368931 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B62E1569219994F30011A05E /* RegistrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationVC.swift; sourceTree = "<group>"; };
 		B62E156B21999C240011A05E /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		B69BE21A2192D46B007994D1 /* TinderLikeSwipeAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinderLikeSwipeAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,6 +46,8 @@
 		B69BE23A21943BA2007994D1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B69BE23E21948173007994D1 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		B69BE24021948C0E007994D1 /* Advertiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertiser.swift; sourceTree = "<group>"; };
+		EF6887F8F8E6B9D96CB1E5A5 /* Pods-TinderLikeSwipeAnimation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinderLikeSwipeAnimation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TinderLikeSwipeAnimation/Pods-TinderLikeSwipeAnimation.debug.xcconfig"; sourceTree = "<group>"; };
+		F499B13F50DE6F2F834FD610 /* Pods_TinderLikeSwipeAnimation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TinderLikeSwipeAnimation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,17 +55,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7D16BA8D7285112CE7A9633 /* Pods_TinderLikeSwipeAnimation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E1FAAAB12B5D76050B1DFF6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F499B13F50DE6F2F834FD610 /* Pods_TinderLikeSwipeAnimation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B69BE2112192D46B007994D1 = {
 			isa = PBXGroup;
 			children = (
 				B69BE21C2192D46B007994D1 /* TinderLikeSwipeAnimation */,
 				B69BE21B2192D46B007994D1 /* Products */,
+				DB77F47C391F6F01F142F6A6 /* Pods */,
+				1E1FAAAB12B5D76050B1DFF6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -84,6 +101,7 @@
 				B69BE2242192D46D007994D1 /* Assets.xcassets */,
 				B69BE2262192D46D007994D1 /* LaunchScreen.storyboard */,
 				B69BE2292192D46D007994D1 /* Info.plist */,
+				B61D0F00219DFB4800368931 /* GoogleService-Info.plist */,
 			);
 			path = TinderLikeSwipeAnimation;
 			sourceTree = "<group>";
@@ -134,6 +152,15 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		DB77F47C391F6F01F142F6A6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EF6887F8F8E6B9D96CB1E5A5 /* Pods-TinderLikeSwipeAnimation.debug.xcconfig */,
+				2329554194D97AE592B07949 /* Pods-TinderLikeSwipeAnimation.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -141,9 +168,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B69BE22C2192D46D007994D1 /* Build configuration list for PBXNativeTarget "TinderLikeSwipeAnimation" */;
 			buildPhases = (
+				0BC6F1C0A92DA40B1F335EAF /* [CP] Check Pods Manifest.lock */,
 				B69BE2162192D46B007994D1 /* Sources */,
 				B69BE2172192D46B007994D1 /* Frameworks */,
 				B69BE2182192D46B007994D1 /* Resources */,
+				0E8940EBCA7CF89FFFEBCC5A /* [CP] Embed Pods Frameworks */,
+				29CE1CDED232DC470D1A0DAD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -193,12 +223,91 @@
 			buildActionMask = 2147483647;
 			files = (
 				B69BE2282192D46D007994D1 /* LaunchScreen.storyboard in Resources */,
+				B61D0F01219DFB4800368931 /* GoogleService-Info.plist in Resources */,
 				B69BE2252192D46D007994D1 /* Assets.xcassets in Resources */,
 				B69BE2232192D46B007994D1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0BC6F1C0A92DA40B1F335EAF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TinderLikeSwipeAnimation-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		0E8940EBCA7CF89FFFEBCC5A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TinderLikeSwipeAnimation/Pods-TinderLikeSwipeAnimation-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TinderLikeSwipeAnimation/Pods-TinderLikeSwipeAnimation-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		29CE1CDED232DC470D1A0DAD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TinderLikeSwipeAnimation/Pods-TinderLikeSwipeAnimation-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B69BE2162192D46B007994D1 /* Sources */ = {
@@ -360,6 +469,7 @@
 		};
 		B69BE22D2192D46D007994D1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF6887F8F8E6B9D96CB1E5A5 /* Pods-TinderLikeSwipeAnimation.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -378,6 +488,7 @@
 		};
 		B69BE22E2192D46D007994D1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2329554194D97AE592B07949 /* Pods-TinderLikeSwipeAnimation.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

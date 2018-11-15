@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import JGProgressHUD
 
 class RegistrationVC: UIViewController {
     
@@ -56,6 +58,7 @@ class RegistrationVC: UIViewController {
         button.layer.cornerRadius = 25
         button.titleLabel?.font = UIFont(name: "AvenirNext-Medium", size: 24)
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
         return button
     }()
     
@@ -139,6 +142,29 @@ class RegistrationVC: UIViewController {
     fileprivate func setupNotificationObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    //MARK:- handlers
+    @objc fileprivate func handleRegister() {
+        self.handleTap()
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        Auth.auth().createUser(withEmail: email, password: password) { (res, error) in
+            if let err = error {
+                print(err)
+                self.showHUDWithError(error: err)
+                
+            }
+            print("Successfully registerd user: ", res?.user.uid ?? "")
+        }
+    }
+    
+    fileprivate func showHUDWithError(error: Error) {
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Failed registration"
+        hud.detailTextLabel.text = error.localizedDescription
+        hud.show(in: self.view)
+        hud.dismiss(afterDelay: 4)
     }
     
     @objc fileprivate func handleTextChanged(textField: UITextField) {
