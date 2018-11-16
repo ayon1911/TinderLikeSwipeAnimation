@@ -170,7 +170,6 @@ class RegistrationVC: UIViewController {
                 self.showHUDWithError(error: err)
             }
         }
-        self.registrationViewModel.bindableIsRegistering.value = false
     }
     
     fileprivate func showHUDWithError(error: Error) {
