@@ -32,7 +32,10 @@ class RegistrationViewModel {
                 completion(err)
             }
             self.bindableIsRegistering.value = false
+            //store url to firestore
             completion(nil)
         }
     }
+    
+    
 }
