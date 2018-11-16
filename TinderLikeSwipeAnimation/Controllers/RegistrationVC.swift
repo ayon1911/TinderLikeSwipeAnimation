@@ -14,6 +14,7 @@ class RegistrationVC: UIViewController {
     
     let gradientLayer = CAGradientLayer()
     let registrationViewModel = RegistrationViewModel()
+    let registerHUD = JGProgressHUD(style: .dark)
     
     let selectPhotoButton: UIButton = {
         let button = UIButton(type: .system)
@@ -24,6 +25,9 @@ class RegistrationVC: UIViewController {
         button.layer.cornerRadius = 16
         button.heightAnchor.constraint(equalToConstant: 275).isActive = true
         button.widthAnchor.constraint(equalToConstant: 275).isActive = true
+        button.addTarget(self, action: #selector(handleSeletecPhoto), for: .touchUpInside)
+        button.imageView?.contentMode = .scaleAspectFill
+        button.clipsToBounds = true
         return button
     }()
     let fullNameTextField: CustomTextField = {
@@ -88,7 +92,7 @@ class RegistrationVC: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
+//        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewWillLayoutSubviews() {
@@ -105,14 +109,22 @@ class RegistrationVC: UIViewController {
     }
 
     fileprivate func setupRegistrationViewModelObserver() {
-        registrationViewModel.isFormValidObserver = { [unowned self] (isFormValid) in
+        registrationViewModel.bindableIsFormValid.bind { [unowned self] (isFormValid) in
+            guard let isFormValid = isFormValid else { return }
             self.registerButton.isEnabled = isFormValid
-            if isFormValid {
-                self.registerButton.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.1176470588, blue: 0.1176470588, alpha: 1)
-                self.registerButton.setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
+            self.registerButton.backgroundColor = isFormValid ? #colorLiteral(red: 0.1176470588, green: 0.1176470588, blue: 0.1176470588, alpha: 1) : #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+            self.registerButton.setTitleColor(isFormValid ? .white : .gray, for: .normal)
+        }
+
+        registrationViewModel.bindableImage.bind { [unowned self] (img) in
+            self.selectPhotoButton.setImage(img?.withRenderingMode(.alwaysOriginal), for: .normal)
+        }
+        registrationViewModel.bindableIsRegistering.bind { [unowned self] (isRegistering) in
+            if isRegistering == true {
+                self.registerHUD.textLabel.text = "Registering"
+                self.registerHUD.show(in: self.view)
             } else {
-                self.registerButton.backgroundColor = .lightGray
-                self.registerButton.setTitleColor(.gray, for: .normal)
+                self.registerHUD.dismiss()
             }
         }
     }
@@ -145,21 +157,24 @@ class RegistrationVC: UIViewController {
     }
     
     //MARK:- handlers
+    @objc fileprivate func handleSeletecPhoto() {
+        let imagePicker = UIImagePickerController()
+        present(imagePicker, animated: true, completion: nil)
+        imagePicker.delegate = self
+    }
+    
     @objc fileprivate func handleRegister() {
         self.handleTap()
-        guard let email = emailTextField.text else { return }
-        guard let password = passwordTextField.text else { return }
-        Auth.auth().createUser(withEmail: email, password: password) { (res, error) in
+        registrationViewModel.performRegistration { (error) in
             if let err = error {
-                print(err)
                 self.showHUDWithError(error: err)
-                
             }
-            print("Successfully registerd user: ", res?.user.uid ?? "")
         }
+        self.registrationViewModel.bindableIsRegistering.value = false
     }
     
     fileprivate func showHUDWithError(error: Error) {
+        registerHUD.dismiss()
         let hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = "Failed registration"
         hud.detailTextLabel.text = error.localizedDescription
@@ -199,5 +214,18 @@ class RegistrationVC: UIViewController {
             self.view.transform = .identity
         }, completion: nil)
     }
+}
+
+
+extension RegistrationVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[.originalImage] as? UIImage
+        registrationViewModel.bindableImage.value = image
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
 }

@@ -12,6 +12,8 @@
 		B61D0F01219DFB4800368931 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B61D0F00219DFB4800368931 /* GoogleService-Info.plist */; };
 		B62E156A219994F30011A05E /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62E1569219994F30011A05E /* RegistrationVC.swift */; };
 		B62E156C21999C240011A05E /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62E156B21999C240011A05E /* CustomTextField.swift */; };
+		B672C79D219EDB2A00D156EA /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B672C79C219EDB2A00D156EA /* Bindable.swift */; };
+		B672C7A0219EF0ED00D156EA /* RegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B672C79F219EF0ED00D156EA /* RegisterService.swift */; };
 		B69BE21E2192D46B007994D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69BE21D2192D46B007994D1 /* AppDelegate.swift */; };
 		B69BE2202192D46B007994D1 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69BE21F2192D46B007994D1 /* HomeController.swift */; };
 		B69BE2232192D46B007994D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B69BE2212192D46B007994D1 /* Main.storyboard */; };
@@ -32,6 +34,8 @@
 		B61D0F00219DFB4800368931 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B62E1569219994F30011A05E /* RegistrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationVC.swift; sourceTree = "<group>"; };
 		B62E156B21999C240011A05E /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		B672C79C219EDB2A00D156EA /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
+		B672C79F219EF0ED00D156EA /* RegisterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterService.swift; sourceTree = "<group>"; };
 		B69BE21A2192D46B007994D1 /* TinderLikeSwipeAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinderLikeSwipeAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B69BE21D2192D46B007994D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B69BE21F2192D46B007994D1 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -70,6 +74,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B672C79E219EF0DF00D156EA /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				B672C79F219EF0ED00D156EA /* RegisterService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		B69BE2112192D46B007994D1 = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +103,7 @@
 		B69BE21C2192D46B007994D1 /* TinderLikeSwipeAnimation */ = {
 			isa = PBXGroup;
 			children = (
+				B672C79E219EF0DF00D156EA /* Service */,
 				B69BE23D21948159007994D1 /* ViewModels */,
 				B69BE23C219480B4007994D1 /* Controllers */,
 				B69BE23921943B93007994D1 /* Model */,
@@ -139,6 +152,7 @@
 			children = (
 				B69BE21F2192D46B007994D1 /* HomeController.swift */,
 				B62E1569219994F30011A05E /* RegistrationVC.swift */,
+				B672C79C219EDB2A00D156EA /* Bindable.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -314,6 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B672C79D219EDB2A00D156EA /* Bindable.swift in Sources */,
 				B69BE2202192D46B007994D1 /* HomeController.swift in Sources */,
 				B60C7474219DEB0A00391F85 /* RegistrationViewModel.swift in Sources */,
 				B62E156C21999C240011A05E /* CustomTextField.swift in Sources */,
@@ -326,6 +341,7 @@
 				B69BE238219345DC007994D1 /* CardView.swift in Sources */,
 				B69BE2362192DFA1007994D1 /* TopNavigationStackView.swift in Sources */,
 				B69BE23B21943BA2007994D1 /* User.swift in Sources */,
+				B672C7A0219EF0ED00D156EA /* RegisterService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
