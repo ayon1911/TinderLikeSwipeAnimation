@@ -25,12 +25,12 @@ class CardViewModel {
         self.textAlligenment = textAlligenment
     }
     //variable for reactive state change
-    var imageIndexObserver: ((Int, UIImage?) -> ())?
+    var imageIndexObserver: ((Int, String?) -> ())?
     
     fileprivate var imageIndex = 0 {
         didSet {
-            let image = UIImage(named: imageNames[imageIndex])
-            imageIndexObserver?(imageIndex, image)
+            let imageUrl = imageNames[imageIndex]
+            imageIndexObserver?(imageIndex, imageUrl)
         }
     }
     

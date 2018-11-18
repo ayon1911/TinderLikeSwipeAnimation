@@ -11,7 +11,8 @@ import Firebase
 
 class RegisterService {
     static let shared = RegisterService()
-    let registerViewModel = RegistrationViewModel()
+    
+    var passFullname: ((_ name: String) -> String)?
     
     func registerUser(email: String, password: String, image: UIImage?, completion: @escaping (Error?) -> ()) -> () {
         Auth.auth().createUser(withEmail: email, password: password) { (res, error) in
@@ -38,14 +39,17 @@ class RegisterService {
                     return
                 }
                 print("Download image for our url : \(url?.absoluteString ?? "")")
-                self.saveInfoToFireStore(imageUrl: url?.absoluteString ?? "", completion: completion)
                 completion(nil)
+                self.saveInfoToFireStore(imageUrl: url?.absoluteString ?? "", completion: completion)
             })
         })
     }
     
     fileprivate func saveInfoToFireStore(imageUrl: String, completion: @escaping (Error?) -> ()) {
-        guard let uid = Auth.auth().currentUser?.uid, let fullname = registerViewModel.fullname else { return }
+        guard let uid = Auth.auth().currentUser?.uid, let fullname = passFullname else {
+            print("something went wrong")
+            return
+        }
         let docData = ["fullname":  fullname, "uid": uid, "imageUrl": imageUrl] as [String: Any]
         Firestore.firestore().collection("users").document(uid).setData(docData) { (error) in
             if let err = error {
@@ -53,6 +57,7 @@ class RegisterService {
                 return
             }
             completion(nil)
+            print("collection was saved into the firestore")
         }
     }
 }
