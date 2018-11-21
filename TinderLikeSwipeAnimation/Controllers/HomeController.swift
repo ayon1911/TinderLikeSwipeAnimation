@@ -62,7 +62,6 @@ class HomeController: UIViewController {
                 self.lastFetchedUser = user
                 self.setupCarFromUser(user: user)
             })
-            
         }
     }
     
@@ -75,8 +74,9 @@ class HomeController: UIViewController {
     }
     //MARK:- handler functions
     @objc fileprivate func handleSettings() {
-        let registrationVC = RegistrationVC()
-        present(registrationVC, animated: true, completion: nil)
+        let settingsVC = SettingsVC()
+        let nav = UINavigationController(rootViewController: settingsVC)
+        present(nav, animated: true, completion: nil)
     }
     
     @objc fileprivate func handleRefresh() {
