@@ -8,45 +8,33 @@
 
 import UIKit
 import Firebase
+import JGProgressHUD
 
 class HomeController: UIViewController {
     //MARK:- variables
     let topNavigationStackView = TopNavigationStackView()
-    let bottomStackView = HomeBottomControlsStackView()
+    let bottomControls = HomeBottomControlsStackView()
     let cardDeckView = UIView()
     
     var cardViewModels = [CardViewModel]()
-    
-//    let cardViewModels: [CardViewModel] = {
-//        let producers = [
-//                    User(name: "Gambit", age: 34, profession: "Card Strickstar", imageNames: ["gambit"]),
-//                    User(name: "Logan", age: 100, profession: "Army Person", imageNames: ["logan"]),
-//                    User(name: "Perter", age: 32, profession: "Camera Man", imageNames: ["peter"]),
-//                    Advertiser(title: "Black Panther", brandName: "It's so Black", posterPhotoName: "panther"),
-//                    User(name: "Deadpool", age: 45, profession: "Idiocracy", imageNames: ["deadpool"]),
-//                    User(name: "Bruce Wayne", age: 60, profession: "Billionaire", imageNames: ["batman"]),
-//                    User(name: "Berry", age: 25, profession: "Student", imageNames: ["flash", "flash2", "flash3"]),
-//                    User(name: "Dr.Strange", age: 42, profession: "Doctor", imageNames: ["strange", "strange2", "strange3"])
-//
-//        ] as [ProducesCarViewModel]
-//        let viewModels = producers.map({ return $0.toCardViewModel()})
-//        return viewModels
-//    }()
+    //this variable keeps track of the last fetched user so that we can paginate through firebases
+    var lastFetchedUser: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         topNavigationStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
         
+        bottomControls.refreshButton.addTarget(self, action: #selector(handleRefresh), for: .touchUpInside)
+        
         setupMainStackView()
-        setupCardView()
         fetchUserFromFireStote()
     }
 
     //MARK: - Fileprivate
     fileprivate func setupMainStackView() {
         view.backgroundColor = .white
-        let mainStackView = UIStackView(arrangedSubviews: [topNavigationStackView, cardDeckView , bottomStackView])
+        let mainStackView = UIStackView(arrangedSubviews: [topNavigationStackView, cardDeckView , bottomControls])
         mainStackView.axis = .vertical
         
         view.addSubview(mainStackView)
@@ -56,18 +44,13 @@ class HomeController: UIViewController {
         mainStackView.bringSubviewToFront(cardDeckView)
     }
     //MARK:- fileprivate
-    fileprivate func setupCardView() {
-        cardViewModels.forEach { (cardViewModel) in
-            let cardView = CardView(frame: .zero)
-            cardView.cardViewModel = cardViewModel
-            cardDeckView.addSubview(cardView)
-            cardView.fillSuperview()
-        }
-    }
-    
     fileprivate func fetchUserFromFireStote() {
-        let query = Firestore.firestore().collection("users")
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Fetching User"
+        hud.show(in: view)
+        let query = Firestore.firestore().collection("users").order(by: "uid").start(after: [lastFetchedUser?.uid ?? ""]).limit(to: 2)
         query.getDocuments { (snapshot, error) in
+            hud.dismiss()
             if let err = error {
                 print("Failed to fetch user:", err)
                 return
@@ -76,16 +59,28 @@ class HomeController: UIViewController {
                 let userDict = snapshot.data()
                 let user = User(dictionary: userDict)
                 self.cardViewModels.append(user.toCardViewModel())
-                print(userDict)
+                self.lastFetchedUser = user
+                self.setupCarFromUser(user: user)
             })
-            self.setupCardView()
+            
         }
     }
     
+    fileprivate func setupCarFromUser(user: User) {
+        let cardView = CardView(frame: .zero)
+        cardView.cardViewModel = user.toCardViewModel()
+        cardDeckView.addSubview(cardView)
+        cardDeckView.sendSubviewToBack(cardView)
+        cardView.fillSuperview()
+    }
     //MARK:- handler functions
     @objc fileprivate func handleSettings() {
         let registrationVC = RegistrationVC()
         present(registrationVC, animated: true, completion: nil)
+    }
+    
+    @objc fileprivate func handleRefresh() {
+        fetchUserFromFireStote()
     }
 }
 
