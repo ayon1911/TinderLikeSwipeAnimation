@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import JGProgressHUD
 
-class HomeController: UIViewController {
+class HomeController: UIViewController, SettingsVCDelegate {
     //MARK:- variables
     let topNavigationStackView = TopNavigationStackView()
     let bottomControls = HomeBottomControlsStackView()
@@ -19,6 +19,7 @@ class HomeController: UIViewController {
     var cardViewModels = [CardViewModel]()
     //this variable keeps track of the last fetched user so that we can paginate through firebases
     var lastFetchedUser: User?
+    var user: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +30,21 @@ class HomeController: UIViewController {
         
         setupMainStackView()
         fetchUserFromFireStote()
+        fetchCurrentUser()
     }
 
     //MARK: - Fileprivate
+    fileprivate func fetchCurrentUser() {
+        FetchUserService.shared.fetchCurrentUser { (user, error) in
+            if let err = error {
+                print(err)
+                return
+            }
+            self.user = user
+            self.fetchUserFromFireStote()
+        }
+    }
+    
     fileprivate func setupMainStackView() {
         view.backgroundColor = .white
         let mainStackView = UIStackView(arrangedSubviews: [topNavigationStackView, cardDeckView , bottomControls])
@@ -45,10 +58,11 @@ class HomeController: UIViewController {
     }
     //MARK:- fileprivate
     fileprivate func fetchUserFromFireStote() {
+        guard let minAge = user?.minAge, let maxAge = user?.maxAge else { return }
         let hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = "Fetching User"
         hud.show(in: view)
-        let query = Firestore.firestore().collection("users").order(by: "uid").start(after: [lastFetchedUser?.uid ?? ""]).limit(to: 2)
+        let query = Firestore.firestore().collection("users").whereField("age", isGreaterThanOrEqualTo: minAge).whereField("age", isLessThanOrEqualTo: maxAge)
         query.getDocuments { (snapshot, error) in
             hud.dismiss()
             if let err = error {
@@ -75,12 +89,17 @@ class HomeController: UIViewController {
     //MARK:- handler functions
     @objc fileprivate func handleSettings() {
         let settingsVC = SettingsVC()
+        settingsVC.delegate = self
         let nav = UINavigationController(rootViewController: settingsVC)
         present(nav, animated: true, completion: nil)
     }
     
     @objc fileprivate func handleRefresh() {
         fetchUserFromFireStote()
+    }
+    
+    func didSaveSettings() {
+        fetchCurrentUser()
     }
 }
 

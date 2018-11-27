@@ -19,6 +19,8 @@ struct User: ProducesCarViewModel {
     var imageUrl2: String?
     var imageUrl3: String?
     var uid: String?
+    var minAge: Int?
+    var maxAge: Int?
     
     init(dictionary: [String: Any]) {
         self.name = dictionary["fullName"] as? String ?? ""
@@ -29,6 +31,8 @@ struct User: ProducesCarViewModel {
         
         self.age = dictionary["age"] as? Int
         self.profession = dictionary["profession"] as? String
+        self.minAge = dictionary["minAge"] as? Int
+        self.maxAge = dictionary["maxAge"] as? Int
         
     }
     

@@ -11,8 +11,15 @@ import Firebase
 import JGProgressHUD
 import SDWebImage
 
+protocol SettingsVCDelegate {
+    func didSaveSettings()
+}
+
 class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    var delegate: SettingsVCDelegate?
+    var user: User?
+
     lazy var image1Button = createButton(selector: #selector(handleSelectPhoto))
     lazy var image2Button = createButton(selector: #selector(handleSelectPhoto))
     lazy var image3Button = createButton(selector: #selector(handleSelectPhoto))
@@ -59,6 +66,7 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerLabel = HeaderLabel()
+        headerLabel.font = UIFont(name: "AvenirNext-Medium", size: 21)
         switch section {
         case 1:
             headerLabel.text = "Name"
@@ -66,8 +74,10 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
             headerLabel.text = "Profession"
         case 3:
             headerLabel.text = "Age"
-        default:
+        case 4:
             headerLabel.text = "Bio"
+        default:
+            headerLabel.text = "Age Range"
         }
         return (section == 0) ? header : headerLabel
     }
@@ -77,15 +87,36 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 6
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (section == 0) ? 0 : 1
     }
     
+    @objc fileprivate func handleMinAgeRange(slider: UISlider) {
+        evaluateMinMax()
+    }
+    
+    @objc fileprivate func handleMaxAgeRange(slider: UISlider) {
+        evaluateMinMax()
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = SettingsCell(style: .default, reuseIdentifier: nil)
+        
+        if indexPath.section == 5 {
+            let ageRangeCell = AgeRangeCell(style: .default, reuseIdentifier: nil)
+            ageRangeCell.minSlider.addTarget(self, action: #selector(handleMinAgeRange), for: .valueChanged)
+            ageRangeCell.maxSlider.addTarget(self, action: #selector(handleMaxAgeRange), for: .valueChanged)
+            
+            ageRangeCell.minLabel.text = "Min \(user?.minAge ?? -1)"
+            ageRangeCell.minSlider.value = Float(user?.minAge ?? -1)
+            ageRangeCell.maxLabel.text = "Max \(user?.maxAge ?? -1)"
+            ageRangeCell.maxSlider.value = Float(user?.maxAge ?? -1)
+            return ageRangeCell
+        }
+        
         switch indexPath.section {
         case 1:
             cell.textField.placeholder = "Enter Name"
@@ -107,18 +138,29 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
         return cell
     }
     
-    var user: User?
     fileprivate func fetchCurrentuser() {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        Firestore.firestore().collection("users").document(uid).getDocument { (snapshot, error) in
+        FetchUserService.shared.fetchCurrentUser { (user, error) in
             if let err = error {
-                print(err)
+                print("Could not fetch data", err)
+                return
             }
-            guard let dict = snapshot?.data() else { return }
-            self.user = User(dictionary: dict)
+            self.user = user
             self.loadUserPhotos()
             self.tableView.reloadData()
         }
+    }
+    
+    fileprivate func evaluateMinMax() {
+        guard let ageRangeCell = tableView.cellForRow(at: [5, 0]) as? AgeRangeCell else { return }
+        let minValue = Int(ageRangeCell.minSlider.value)
+        var maxValue = Int(ageRangeCell.maxSlider.value)
+        maxValue = max(minValue, maxValue)
+        ageRangeCell.maxSlider.value = Float(maxValue)
+        ageRangeCell.minLabel.text = "Min \(minValue)"
+        ageRangeCell.maxLabel.text = "Max \(maxValue)"
+        
+        user?.minAge = minValue
+        user?.maxAge = maxValue
     }
     
     fileprivate func loadUserPhotos() {
@@ -168,7 +210,9 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
             "profession": user?.profession ?? "",
             "imageUrl1": user?.imageUrl1 ?? "",
             "imageUrl2": user?.imageUrl2 ?? "",
-            "imageUrl3": user?.imageUrl3 ?? ""
+            "imageUrl3": user?.imageUrl3 ?? "",
+            "minAge": user?.minAge ?? -1,
+            "maxAge": user?.maxAge ?? -1
         ]
         let hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = "Saving  settings"
@@ -179,6 +223,9 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
                 return
             }
             hud.dismiss(animated: true)
+            self.dismiss(animated: true, completion: {
+                self.delegate?.didSaveSettings()
+            })
         }
     }
     
