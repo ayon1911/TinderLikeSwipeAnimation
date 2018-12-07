@@ -16,7 +16,7 @@ protocol SettingsVCDelegate {
 }
 
 class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+    //MARK:- Variables
     var delegate: SettingsVCDelegate?
     var user: User?
 
@@ -63,7 +63,7 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
         
         fetchCurrentuser()
     }
-    
+    //MARK:- TABELVIEW DELEGATE AND DATASOURCE
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerLabel = HeaderLabel()
         headerLabel.font = UIFont(name: "AvenirNext-Medium", size: 21)
@@ -92,14 +92,6 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (section == 0) ? 0 : 1
-    }
-    
-    @objc fileprivate func handleMinAgeRange(slider: UISlider) {
-        evaluateMinMax()
-    }
-    
-    @objc fileprivate func handleMaxAgeRange(slider: UISlider) {
-        evaluateMinMax()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -136,6 +128,17 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
             cell.textField.placeholder = "Enter Bio"
         }
         return cell
+    }
+    
+    //MARK:- SETUP & HELPERS
+    fileprivate func setupNavigationItems() {
+        navigationItem.title = "Settings"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave)),
+            UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
+        ]
     }
     
     fileprivate func fetchCurrentuser() {
@@ -181,14 +184,13 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
         }
     }
     
-    fileprivate func setupNavigationItems() {
-        navigationItem.title = "Settings"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
-        navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave)),
-            UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleCancel))
-        ]
+    //MARK:- HANDLER FUNCTIONS
+    @objc fileprivate func handleMinAgeRange(slider: UISlider) {
+        evaluateMinMax()
+    }
+    
+    @objc fileprivate func handleMaxAgeRange(slider: UISlider) {
+        evaluateMinMax()
     }
     
     @objc fileprivate func handleNameChange(textField: UITextField) {
@@ -198,7 +200,7 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
         self.user?.profession = textField.text
     }
     @objc fileprivate func handleAgeChange(textField: UITextField) {
-       self.user?.age = Int(textField.text ?? "")
+        self.user?.age = Int(textField.text ?? "")
     }
     
     @objc fileprivate func handleSave() {
@@ -233,13 +235,19 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
         dismiss(animated: true, completion: nil)
     }
     
+    @objc fileprivate func handleLogout() {
+        try? Auth.auth().signOut()
+        dismiss(animated: true, completion: nil)
+    }
+    
     @objc func handleSelectPhoto(button: UIButton) {
         let imagePicker = CustomImagePickerController()
         imagePicker.delegate = self
         imagePicker.imageButton = button
         present(imagePicker, animated: true, completion: nil)
     }
-    
+
+    //MARK:- IMAGE PICKER
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let selectedImage = info[.originalImage] as? UIImage
         let imageButton = (picker as? CustomImagePickerController)?.imageButton
@@ -278,7 +286,7 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
         }
     }
 }
-
+//MARK:- CUSTOM CLASSES
 class CustomImagePickerController: UIImagePickerController {
     var imageButton: UIButton?
 }

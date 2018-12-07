@@ -31,14 +31,14 @@ class RegistrationVC: UIViewController {
         return button
     }()
     let fullNameTextField: CustomTextField = {
-        let textField = CustomTextField(padding: 20)
+        let textField = CustomTextField(padding: 20, height: 50)
         textField.placeholder = "Enter full name"
         textField.backgroundColor = .white
         textField.addTarget(self, action: #selector(handleTextChanged), for: .editingChanged)
         return textField
     }()
     let emailTextField: CustomTextField = {
-        let textField = CustomTextField(padding: 20)
+        let textField = CustomTextField(padding: 20, height: 50)
         textField.placeholder = "Enter Email"
         textField.keyboardType = .emailAddress
         textField.backgroundColor = .white
@@ -46,7 +46,7 @@ class RegistrationVC: UIViewController {
         return textField
     }()
     let passwordTextField: CustomTextField = {
-        let textField = CustomTextField(padding: 20)
+        let textField = CustomTextField(padding: 20, height: 50)
         textField.placeholder = "Enter password"
         textField.isSecureTextEntry = true
         textField.backgroundColor = .white
@@ -63,6 +63,14 @@ class RegistrationVC: UIViewController {
         button.titleLabel?.font = UIFont(name: "AvenirNext-Medium", size: 24)
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
         button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
+        return button
+    }()
+    let goToLoginButton: UIButton = {
+       let button = UIButton(type: .system)
+        button.setTitle("Go To Login", for: .normal)
+        button.titleLabel?.font = UIFont(name: "AvenirNext-Medium", size: 22)
+        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        button.addTarget(self, action: #selector(handleGoToLogin), for: .touchUpInside)
         return button
     }()
     
@@ -140,11 +148,15 @@ class RegistrationVC: UIViewController {
     
     
     fileprivate func setupLayout() {
+        navigationController?.isNavigationBarHidden = true
         view.addSubview(overallStackView)
         overallStackView.axis = .vertical
         overallStackView.spacing = 8
         overallStackView.anchor(top: nil, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 40, bottom: 0, right: 40))
         overallStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        view.addSubview(goToLoginButton)
+        goToLoginButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.trailingAnchor)
     }
     
     fileprivate func setupTapGesture() {
@@ -157,6 +169,11 @@ class RegistrationVC: UIViewController {
     }
     
     //MARK:- handlers
+    @objc fileprivate func handleGoToLogin() {
+        let loginVC = LoginVC()
+        navigationController?.pushViewController(loginVC, animated: true)
+    }
+    
     @objc fileprivate func handleSeletecPhoto() {
         let imagePicker = UIImagePickerController()
         present(imagePicker, animated: true, completion: nil)

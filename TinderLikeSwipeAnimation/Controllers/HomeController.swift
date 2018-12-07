@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import JGProgressHUD
 
-class HomeController: UIViewController, SettingsVCDelegate {
+class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDelegate {
     //MARK:- variables
     let topNavigationStackView = TopNavigationStackView()
     let bottomControls = HomeBottomControlsStackView()
@@ -19,7 +19,8 @@ class HomeController: UIViewController, SettingsVCDelegate {
     var cardViewModels = [CardViewModel]()
     //this variable keeps track of the last fetched user so that we can paginate through firebases
     var lastFetchedUser: User?
-    var user: User?
+    fileprivate var user: User?
+    fileprivate var hud = JGProgressHUD(style: .dark)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,15 +33,29 @@ class HomeController: UIViewController, SettingsVCDelegate {
         fetchUserFromFireStote()
         fetchCurrentUser()
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if Auth.auth().currentUser == nil {
+            let loginVC = LoginVC()
+            loginVC.delegate = self
+            let nav = UINavigationController(rootViewController: loginVC)
+            present(nav, animated: true, completion: nil)
+        }
+    }
+    
     //MARK: - Fileprivate
     fileprivate func fetchCurrentUser() {
+        hud.textLabel.text = "Loading"
+        hud.show(in: view)
         FetchUserService.shared.fetchCurrentUser { (user, error) in
             if let err = error {
                 print(err)
+                self.hud.dismiss(animated: true)
                 return
             }
             self.user = user
+            self.hud.dismiss(animated: true)
             self.fetchUserFromFireStote()
         }
     }
@@ -85,6 +100,10 @@ class HomeController: UIViewController, SettingsVCDelegate {
         cardDeckView.addSubview(cardView)
         cardDeckView.sendSubviewToBack(cardView)
         cardView.fillSuperview()
+    }
+    
+    func didFinishLoginIn() {
+        fetchCurrentUser()
     }
     //MARK:- handler functions
     @objc fileprivate func handleSettings() {

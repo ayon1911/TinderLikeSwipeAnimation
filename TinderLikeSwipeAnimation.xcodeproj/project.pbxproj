@@ -30,6 +30,8 @@
 		B69BE24121948C0E007994D1 /* Advertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69BE24021948C0E007994D1 /* Advertiser.swift */; };
 		B6F0091021AC0B33002133BD /* AgeRangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F0090F21AC0B33002133BD /* AgeRangeCell.swift */; };
 		B6F0091421AD5A57002133BD /* FetchUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F0091321AD5A57002133BD /* FetchUserService.swift */; };
+		B6F0091621AD7D1B002133BD /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F0091521AD7D1B002133BD /* LoginVC.swift */; };
+		B6F0091821AD8E2C002133BD /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F0091721AD8E2C002133BD /* LoginViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		B69BE24021948C0E007994D1 /* Advertiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertiser.swift; sourceTree = "<group>"; };
 		B6F0090F21AC0B33002133BD /* AgeRangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeRangeCell.swift; sourceTree = "<group>"; };
 		B6F0091321AD5A57002133BD /* FetchUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserService.swift; sourceTree = "<group>"; };
+		B6F0091521AD7D1B002133BD /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		B6F0091721AD8E2C002133BD /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		EF6887F8F8E6B9D96CB1E5A5 /* Pods-TinderLikeSwipeAnimation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinderLikeSwipeAnimation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TinderLikeSwipeAnimation/Pods-TinderLikeSwipeAnimation.debug.xcconfig"; sourceTree = "<group>"; };
 		F499B13F50DE6F2F834FD610 /* Pods_TinderLikeSwipeAnimation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TinderLikeSwipeAnimation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -165,6 +169,7 @@
 				B62E1569219994F30011A05E /* RegistrationVC.swift */,
 				B672C79C219EDB2A00D156EA /* Bindable.swift */,
 				B66FC7D421A6105B00595ACA /* SettingsVC.swift */,
+				B6F0091521AD7D1B002133BD /* LoginVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -174,6 +179,7 @@
 			children = (
 				B69BE23E21948173007994D1 /* CardViewModel.swift */,
 				B60C7473219DEB0A00391F85 /* RegistrationViewModel.swift */,
+				B6F0091721AD8E2C002133BD /* LoginViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -343,10 +349,12 @@
 				B672C79D219EDB2A00D156EA /* Bindable.swift in Sources */,
 				B6F0091421AD5A57002133BD /* FetchUserService.swift in Sources */,
 				B69BE2202192D46B007994D1 /* HomeController.swift in Sources */,
+				B6F0091621AD7D1B002133BD /* LoginVC.swift in Sources */,
 				B60C7474219DEB0A00391F85 /* RegistrationViewModel.swift in Sources */,
 				B62E156C21999C240011A05E /* CustomTextField.swift in Sources */,
 				B69BE2342192DBAF007994D1 /* HomeBottomControlsStackView.swift in Sources */,
 				B6F0091021AC0B33002133BD /* AgeRangeCell.swift in Sources */,
+				B6F0091821AD8E2C002133BD /* LoginViewModel.swift in Sources */,
 				B69BE24121948C0E007994D1 /* Advertiser.swift in Sources */,
 				B62E156A219994F30011A05E /* RegistrationVC.swift in Sources */,
 				B69BE21E2192D46B007994D1 /* AppDelegate.swift in Sources */,
