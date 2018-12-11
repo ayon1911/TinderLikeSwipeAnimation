@@ -110,8 +110,9 @@ class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDeleg
         fetchCurrentUser()
     }
     
-    func didTapMoreInfo() {
+    func didTapMoreInfo(cardViewModel: CardViewModel) {
         let userDetailsVC = UserDetailsVC()
+        userDetailsVC.cardViewModel = cardViewModel
         present(userDetailsVC, animated: true, completion: nil)
     }
     //MARK:- handler functions

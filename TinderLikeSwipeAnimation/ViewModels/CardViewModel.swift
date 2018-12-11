@@ -15,12 +15,12 @@ protocol ProducesCarViewModel {
 
 class CardViewModel {
     //MARK:- variables
-    let imageNames: [String]
+    let imageUrls: [String]
     let attributedtext: NSAttributedString
     let textAlligenment: NSTextAlignment
     
     init(imageNames: [String], attributedText: NSAttributedString, textAlligenment: NSTextAlignment) {
-        self.imageNames = imageNames
+        self.imageUrls = imageNames
         self.attributedtext = attributedText
         self.textAlligenment = textAlligenment
     }
@@ -29,13 +29,13 @@ class CardViewModel {
     
     fileprivate var imageIndex = 0 {
         didSet {
-            let imageUrl = imageNames[imageIndex]
+            let imageUrl = imageUrls[imageIndex]
             imageIndexObserver?(imageIndex, imageUrl)
         }
     }
     
     func advanceToNextImage() {
-        imageIndex = min(imageIndex + 1, imageNames.count - 1)
+        imageIndex = min(imageIndex + 1, imageUrls.count - 1)
     }
     
     func goToPreviousPhoto() {
