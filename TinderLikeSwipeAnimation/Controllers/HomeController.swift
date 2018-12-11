@@ -10,7 +10,8 @@ import UIKit
 import Firebase
 import JGProgressHUD
 
-class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDelegate {
+class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDelegate, CardViewDelegate {
+    
     //MARK:- variables
     let topNavigationStackView = TopNavigationStackView()
     let bottomControls = HomeBottomControlsStackView()
@@ -55,8 +56,8 @@ class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDeleg
                 return
             }
             self.user = user
-            self.hud.dismiss(animated: true)
             self.fetchUserFromFireStote()
+            self.hud.dismiss(animated: true)
         }
     }
     
@@ -74,12 +75,12 @@ class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDeleg
     //MARK:- fileprivate
     fileprivate func fetchUserFromFireStote() {
         guard let minAge = user?.minAge, let maxAge = user?.maxAge else { return }
-        let hud = JGProgressHUD(style: .dark)
-        hud.textLabel.text = "Fetching User"
-        hud.show(in: view)
+//        let hud = JGProgressHUD(style: .dark)
+//        hud.textLabel.text = "Fetching User"
+//        hud.show(in: view)
         let query = Firestore.firestore().collection("users").whereField("age", isGreaterThanOrEqualTo: minAge).whereField("age", isLessThanOrEqualTo: maxAge)
         query.getDocuments { (snapshot, error) in
-            hud.dismiss()
+//            hud.dismiss()
             if let err = error {
                 print("Failed to fetch user:", err)
                 return
@@ -87,15 +88,18 @@ class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDeleg
             snapshot?.documents.forEach({ (snapshot) in
                 let userDict = snapshot.data()
                 let user = User(dictionary: userDict)
-                self.cardViewModels.append(user.toCardViewModel())
-                self.lastFetchedUser = user
-                self.setupCarFromUser(user: user)
+//                self.cardViewModels.append(user.toCardViewModel())
+//                self.lastFetchedUser = user
+                if user.uid != Auth.auth().currentUser?.uid {
+                    self.setupCarFromUser(user: user)
+                }
             })
         }
     }
     
     fileprivate func setupCarFromUser(user: User) {
         let cardView = CardView(frame: .zero)
+        cardView.delegate = self
         cardView.cardViewModel = user.toCardViewModel()
         cardDeckView.addSubview(cardView)
         cardDeckView.sendSubviewToBack(cardView)
@@ -104,6 +108,11 @@ class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDeleg
     
     func didFinishLoginIn() {
         fetchCurrentUser()
+    }
+    
+    func didTapMoreInfo() {
+        let userDetailsVC = UserDetailsVC()
+        present(userDetailsVC, animated: true, completion: nil)
     }
     //MARK:- handler functions
     @objc fileprivate func handleSettings() {

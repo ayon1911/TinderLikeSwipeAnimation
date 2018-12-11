@@ -10,6 +10,7 @@
 		A7D16BA8D7285112CE7A9633 /* Pods_TinderLikeSwipeAnimation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F499B13F50DE6F2F834FD610 /* Pods_TinderLikeSwipeAnimation.framework */; };
 		B60C7474219DEB0A00391F85 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60C7473219DEB0A00391F85 /* RegistrationViewModel.swift */; };
 		B61D0F01219DFB4800368931 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B61D0F00219DFB4800368931 /* GoogleService-Info.plist */; };
+		B61D141421BFCCED00531448 /* UserDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61D141321BFCCED00531448 /* UserDetailsVC.swift */; };
 		B6265B7921A6A7DD00D95BCE /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6265B7821A6A7DD00D95BCE /* SettingsCell.swift */; };
 		B62E156A219994F30011A05E /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62E1569219994F30011A05E /* RegistrationVC.swift */; };
 		B62E156C21999C240011A05E /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62E156B21999C240011A05E /* CustomTextField.swift */; };
@@ -38,6 +39,7 @@
 		2329554194D97AE592B07949 /* Pods-TinderLikeSwipeAnimation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinderLikeSwipeAnimation.release.xcconfig"; path = "Pods/Target Support Files/Pods-TinderLikeSwipeAnimation/Pods-TinderLikeSwipeAnimation.release.xcconfig"; sourceTree = "<group>"; };
 		B60C7473219DEB0A00391F85 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		B61D0F00219DFB4800368931 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B61D141321BFCCED00531448 /* UserDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsVC.swift; sourceTree = "<group>"; };
 		B6265B7821A6A7DD00D95BCE /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		B62E1569219994F30011A05E /* RegistrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationVC.swift; sourceTree = "<group>"; };
 		B62E156B21999C240011A05E /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				B672C79C219EDB2A00D156EA /* Bindable.swift */,
 				B66FC7D421A6105B00595ACA /* SettingsVC.swift */,
 				B6F0091521AD7D1B002133BD /* LoginVC.swift */,
+				B61D141321BFCCED00531448 /* UserDetailsVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				B69BE24121948C0E007994D1 /* Advertiser.swift in Sources */,
 				B62E156A219994F30011A05E /* RegistrationVC.swift in Sources */,
 				B69BE21E2192D46B007994D1 /* AppDelegate.swift in Sources */,
+				B61D141421BFCCED00531448 /* UserDetailsVC.swift in Sources */,
 				B69BE2302192D5BF007994D1 /* Extensions+UIView.swift in Sources */,
 				B69BE23F21948173007994D1 /* CardViewModel.swift in Sources */,
 				B69BE238219345DC007994D1 /* CardView.swift in Sources */,

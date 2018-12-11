@@ -9,9 +9,13 @@
 import UIKit
 import SDWebImage
 
+protocol CardViewDelegate {
+    func didTapMoreInfo()
+}
+
 class CardView: UIView {
     //MARK:- variables
-    
+    var delegate: CardViewDelegate?
     var cardViewModel: CardViewModel! {
         didSet {
             let imageName = cardViewModel.imageNames.first ?? ""
@@ -40,7 +44,13 @@ class CardView: UIView {
     fileprivate let informationLabel = UILabel()
     fileprivate let barsStackView = UIStackView()
     fileprivate let barSelectedColor = UIColor(white: 0.5, alpha: 0.5)
-    
+    fileprivate let moreInfoButton: UIButton = {
+       let button = UIButton(type: .system)
+        button.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        button.setImage(#imageLiteral(resourceName: "moreInfo").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.addTarget(self, action: #selector(handleMoreInfoButton), for: .touchUpInside)
+        return button
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -63,6 +73,9 @@ class CardView: UIView {
         informationLabel.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 16, bottom: 16, right: 16))
         informationLabel.textColor = .yellow
         informationLabel.numberOfLines = 0
+        
+        addSubview(moreInfoButton)
+        moreInfoButton.anchor(top: nil, leading: nil, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 16, right: 16), size: .init(width: 44, height: 44))
         
         let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         addGestureRecognizer(pan)
@@ -111,6 +124,10 @@ class CardView: UIView {
     }
     
     //MARK:- handlers
+    @objc fileprivate func handleMoreInfoButton() {
+        delegate?.didTapMoreInfo()
+    }
+    
     @objc fileprivate func handlePan(gesture: UIPanGestureRecognizer) {
         
         switch gesture.state {
