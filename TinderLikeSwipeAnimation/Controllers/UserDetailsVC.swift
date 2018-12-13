@@ -15,11 +15,13 @@ class UserDetailsVC: UIViewController, UIScrollViewDelegate {
     var cardViewModel: CardViewModel! {
         didSet {
             infoLabel.attributedText = cardViewModel.attributedtext
-            
-            guard let firstImageUrl = cardViewModel.imageUrls.first, let url = URL(string: firstImageUrl) else { return }
-            imageView.sd_setImage(with: url)
+            swipingPhotosController.cardViewModel = cardViewModel
+//            guard let firstImageUrl = cardViewModel.imageUrls.first, let url = URL(string: firstImageUrl) else { return }
+//            imageView.sd_setImage(with: url)
         }
     }
+    
+    let swipingPhotosController = SwipingPhotosVC(transitionStyle: .scroll, navigationOrientation: .horizontal)
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.alwaysBounceVertical = true
@@ -27,12 +29,12 @@ class UserDetailsVC: UIViewController, UIScrollViewDelegate {
         scrollView.delegate = self
         return scrollView
     }()
-    let imageView: UIImageView = {
-        let imageView = UIImageView(image: #imageLiteral(resourceName: "gambit"))
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        return imageView
-    }()
+//    let imageView: UIImageView = {
+//        let imageView = UIImageView(image: #imageLiteral(resourceName: "gambit"))
+//        imageView.contentMode = .scaleAspectFill
+//        imageView.clipsToBounds = true
+//        return imageView
+//    }()
     let infoLabel: UILabel = {
         let label = UILabel()
         label.text = "User name 30\nDoctor\nSome bio text down below"
@@ -65,6 +67,13 @@ class UserDetailsVC: UIViewController, UIScrollViewDelegate {
         setupVisualBlurView()
         setupButtomControls()
     }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        let swipingView = swipingPhotosController.view!
+        swipingView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.width)
+    }
+    
     //MARK:- setup layouts
     fileprivate func setupButtomControls() {
         let stackView = UIStackView(arrangedSubviews: [dislikeButton, superLikeButton, likeButton])
@@ -84,19 +93,21 @@ class UserDetailsVC: UIViewController, UIScrollViewDelegate {
     }
     
     fileprivate func setupLayout() {
+        
+        let swipingView = swipingPhotosController.view!
+        
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         view.addSubview(scrollView)
         
-        scrollView.fillSuperview()
         
-        scrollView.addSubview(imageView)
-        imageView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.width)
+        scrollView.fillSuperview()
+        scrollView.addSubview(swipingView)
         
         scrollView.addSubview(infoLabel)
-        infoLabel.anchor(top: imageView.bottomAnchor, leading: scrollView.leadingAnchor, bottom: nil, trailing: scrollView.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 0, right: 16))
+        infoLabel.anchor(top: swipingView.bottomAnchor, leading: scrollView.leadingAnchor, bottom: nil, trailing: scrollView.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 0, right: 16))
         
         scrollView.addSubview(dismissButton)
-        dismissButton.anchor(top: imageView.bottomAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: -25, left: 0, bottom: 0, right: 16), size: .init(width: 50, height: 50))
+        dismissButton.anchor(top: swipingView.bottomAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: -25, left: 0, bottom: 0, right: 16), size: .init(width: 50, height: 50))
     }
    
     //MARK:- Selector handlers
@@ -110,6 +121,7 @@ class UserDetailsVC: UIViewController, UIScrollViewDelegate {
     
     //MARK:- Deleghate pattern
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let imageView = swipingPhotosController.view!
         let changeY = -scrollView.contentOffset.y
         var width = view.frame.width + changeY * 2
         width = max(view.frame.width, width)
