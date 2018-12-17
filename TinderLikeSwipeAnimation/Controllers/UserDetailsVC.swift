@@ -21,7 +21,7 @@ class UserDetailsVC: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    let swipingPhotosController = SwipingPhotosVC(transitionStyle: .scroll, navigationOrientation: .horizontal)
+    let swipingPhotosController = SwipingPhotosVC(isCardViewMode: false)
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.alwaysBounceVertical = true

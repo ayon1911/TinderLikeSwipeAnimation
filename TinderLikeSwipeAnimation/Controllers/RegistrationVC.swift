@@ -15,6 +15,7 @@ class RegistrationVC: UIViewController {
     let gradientLayer = CAGradientLayer()
     let registrationViewModel = RegistrationViewModel()
     let registerHUD = JGProgressHUD(style: .dark)
+    var delegate: LoginControllerDelegate?
     
     let selectPhotoButton: UIButton = {
         let button = UIButton(type: .system)
@@ -185,7 +186,11 @@ class RegistrationVC: UIViewController {
         registrationViewModel.performRegistration { (error) in
             if let err = error {
                 self.showHUDWithError(error: err)
+                return
             }
+            self.dismiss(animated: true, completion: {
+                self.delegate?.didFinishLoginIn()
+            })
         }
     }
     
@@ -238,6 +243,7 @@ extension RegistrationVC: UIImagePickerControllerDelegate, UINavigationControlle
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[.originalImage] as? UIImage
         registrationViewModel.bindableImage.value = image
+        registrationViewModel.formValidation()
         dismiss(animated: true, completion: nil)
     }
     

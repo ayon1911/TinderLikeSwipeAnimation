@@ -18,6 +18,8 @@
 		B66FC7D521A6105B00595ACA /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66FC7D421A6105B00595ACA /* SettingsVC.swift */; };
 		B672C79D219EDB2A00D156EA /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B672C79C219EDB2A00D156EA /* Bindable.swift */; };
 		B672C7A0219EF0ED00D156EA /* RegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B672C79F219EF0ED00D156EA /* RegisterService.swift */; };
+		B68FF3A121C2AE6000828B05 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68FF3A021C2AE6000828B05 /* Constant.swift */; };
+		B68FF3A321C30B4700828B05 /* PhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68FF3A221C30B4700828B05 /* PhotoController.swift */; };
 		B69BE21E2192D46B007994D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69BE21D2192D46B007994D1 /* AppDelegate.swift */; };
 		B69BE2202192D46B007994D1 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69BE21F2192D46B007994D1 /* HomeController.swift */; };
 		B69BE2232192D46B007994D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B69BE2212192D46B007994D1 /* Main.storyboard */; };
@@ -48,6 +50,8 @@
 		B66FC7D421A6105B00595ACA /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		B672C79C219EDB2A00D156EA /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		B672C79F219EF0ED00D156EA /* RegisterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterService.swift; sourceTree = "<group>"; };
+		B68FF3A021C2AE6000828B05 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		B68FF3A221C30B4700828B05 /* PhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoController.swift; sourceTree = "<group>"; };
 		B69BE21A2192D46B007994D1 /* TinderLikeSwipeAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinderLikeSwipeAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B69BE21D2192D46B007994D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B69BE21F2192D46B007994D1 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -93,6 +97,7 @@
 		B672C79E219EF0DF00D156EA /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				B68FF3A021C2AE6000828B05 /* Constant.swift */,
 				B672C79F219EF0ED00D156EA /* RegisterService.swift */,
 				B6F0091321AD5A57002133BD /* FetchUserService.swift */,
 			);
@@ -176,6 +181,7 @@
 				B6F0091521AD7D1B002133BD /* LoginVC.swift */,
 				B61D141321BFCCED00531448 /* UserDetailsVC.swift */,
 				B61D141521C006D100531448 /* SwipingPhotosVC.swift */,
+				B68FF3A221C30B4700828B05 /* PhotoController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -358,10 +364,12 @@
 				B6F0091621AD7D1B002133BD /* LoginVC.swift in Sources */,
 				B60C7474219DEB0A00391F85 /* RegistrationViewModel.swift in Sources */,
 				B61D141621C006D100531448 /* SwipingPhotosVC.swift in Sources */,
+				B68FF3A321C30B4700828B05 /* PhotoController.swift in Sources */,
 				B62E156C21999C240011A05E /* CustomTextField.swift in Sources */,
 				B69BE2342192DBAF007994D1 /* HomeBottomControlsStackView.swift in Sources */,
 				B6F0091021AC0B33002133BD /* AgeRangeCell.swift in Sources */,
 				B6F0091821AD8E2C002133BD /* LoginViewModel.swift in Sources */,
+				B68FF3A121C2AE6000828B05 /* Constant.swift in Sources */,
 				B69BE24121948C0E007994D1 /* Advertiser.swift in Sources */,
 				B62E156A219994F30011A05E /* RegistrationVC.swift in Sources */,
 				B69BE21E2192D46B007994D1 /* AppDelegate.swift in Sources */,

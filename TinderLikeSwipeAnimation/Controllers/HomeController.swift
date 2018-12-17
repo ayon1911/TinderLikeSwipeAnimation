@@ -31,24 +31,25 @@ class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDeleg
         bottomControls.refreshButton.addTarget(self, action: #selector(handleRefresh), for: .touchUpInside)
         
         setupMainStackView()
-        fetchUserFromFireStote()
-        fetchCurrentUser()
+        //        fetchUserFromFireStote()
+                fetchCurrentUser()
+//        try? Auth.auth().signOut()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if Auth.auth().currentUser == nil {
-            let loginVC = LoginVC()
-            loginVC.delegate = self
-            let nav = UINavigationController(rootViewController: loginVC)
+            let registrationVC = RegistrationVC()
+            registrationVC.delegate = self
+            let nav = UINavigationController(rootViewController: registrationVC)
             present(nav, animated: true, completion: nil)
         }
     }
     
     //MARK: - Fileprivate
     fileprivate func fetchCurrentUser() {
-        hud.textLabel.text = "Loading"
-        hud.show(in: view)
+        self.hud.textLabel.text = "Loading"
+        self.hud.show(in: self.view)
         FetchUserService.shared.fetchCurrentUser { (user, error) in
             if let err = error {
                 print(err)
@@ -57,9 +58,9 @@ class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDeleg
             }
             self.user = user
             self.fetchUserFromFireStote()
-            self.hud.dismiss(animated: true)
         }
     }
+    
     
     fileprivate func setupMainStackView() {
         view.backgroundColor = .white
@@ -74,13 +75,11 @@ class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDeleg
     }
     //MARK:- fileprivate
     fileprivate func fetchUserFromFireStote() {
-        guard let minAge = user?.minAge, let maxAge = user?.maxAge else { return }
-//        let hud = JGProgressHUD(style: .dark)
-//        hud.textLabel.text = "Fetching User"
-//        hud.show(in: view)
+        let minAge = user?.minAge ?? DEFAULT_MIN_AGE
+        let maxAge = user?.maxAge ?? DEFAULT_MAX_AGE
         let query = Firestore.firestore().collection("users").whereField("age", isGreaterThanOrEqualTo: minAge).whereField("age", isLessThanOrEqualTo: maxAge)
         query.getDocuments { (snapshot, error) in
-//            hud.dismiss()
+            self.hud.dismiss()
             if let err = error {
                 print("Failed to fetch user:", err)
                 return
@@ -88,16 +87,14 @@ class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDeleg
             snapshot?.documents.forEach({ (snapshot) in
                 let userDict = snapshot.data()
                 let user = User(dictionary: userDict)
-//                self.cardViewModels.append(user.toCardViewModel())
-//                self.lastFetchedUser = user
                 if user.uid != Auth.auth().currentUser?.uid {
-                    self.setupCarFromUser(user: user)
+                    self.setupCardFromUser(user: user)
                 }
             })
         }
     }
     
-    fileprivate func setupCarFromUser(user: User) {
+    fileprivate func setupCardFromUser(user: User) {
         let cardView = CardView(frame: .zero)
         cardView.delegate = self
         cardView.cardViewModel = user.toCardViewModel()

@@ -138,5 +138,6 @@ class LoginVC: UIViewController {
     }
     @objc fileprivate func handleGoBackButton() {
         navigationController?.popViewController(animated: true)
+        print("Go to Registration")
     }
 }

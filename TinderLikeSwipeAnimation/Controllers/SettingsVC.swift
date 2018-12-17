@@ -102,10 +102,13 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
             ageRangeCell.minSlider.addTarget(self, action: #selector(handleMinAgeRange), for: .valueChanged)
             ageRangeCell.maxSlider.addTarget(self, action: #selector(handleMaxAgeRange), for: .valueChanged)
             
-            ageRangeCell.minLabel.text = "Min \(user?.minAge ?? -1)"
-            ageRangeCell.minSlider.value = Float(user?.minAge ?? -1)
-            ageRangeCell.maxLabel.text = "Max \(user?.maxAge ?? -1)"
-            ageRangeCell.maxSlider.value = Float(user?.maxAge ?? -1)
+            let minAge = user?.minAge ?? DEFAULT_MIN_AGE
+            let maxAge = user?.maxAge ?? DEFAULT_MAX_AGE
+            
+            ageRangeCell.minLabel.text = "Min \(minAge)"
+            ageRangeCell.minSlider.value = Float(maxAge)
+            ageRangeCell.maxLabel.text = "Max \(minAge)"
+            ageRangeCell.maxSlider.value = Float(maxAge)
             return ageRangeCell
         }
         
