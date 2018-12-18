@@ -11,7 +11,7 @@ import Firebase
 import JGProgressHUD
 
 class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDelegate, CardViewDelegate {
-    
+
     //MARK:- variables
     let topNavigationStackView = TopNavigationStackView()
     let bottomControls = HomeBottomControlsStackView()
@@ -20,6 +20,7 @@ class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDeleg
     var cardViewModels = [CardViewModel]()
     //this variable keeps track of the last fetched user so that we can paginate through firebases
     var lastFetchedUser: User?
+    var topCardView: CardView?
     fileprivate var user: User?
     fileprivate var hud = JGProgressHUD(style: .dark)
     
@@ -27,13 +28,11 @@ class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDeleg
         super.viewDidLoad()
         
         topNavigationStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
-        
         bottomControls.refreshButton.addTarget(self, action: #selector(handleRefresh), for: .touchUpInside)
+        bottomControls.likeButton.addTarget(self, action: #selector(handleLike), for: .touchUpInside)
         
         setupMainStackView()
-        //        fetchUserFromFireStote()
-                fetchCurrentUser()
-//        try? Auth.auth().signOut()
+        fetchCurrentUser()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -84,27 +83,41 @@ class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDeleg
                 print("Failed to fetch user:", err)
                 return
             }
+            
+            var previousCardView: CardView?
+            
             snapshot?.documents.forEach({ (snapshot) in
                 let userDict = snapshot.data()
                 let user = User(dictionary: userDict)
                 if user.uid != Auth.auth().currentUser?.uid {
-                    self.setupCardFromUser(user: user)
+                    let cardView = self.setupCardFromUser(user: user)
+                    previousCardView?.nextCardView = cardView
+                    previousCardView = cardView
+                    if self.topCardView == nil {
+                        self.topCardView = cardView
+                    }
                 }
             })
         }
     }
     
-    fileprivate func setupCardFromUser(user: User) {
+    fileprivate func setupCardFromUser(user: User) -> CardView {
         let cardView = CardView(frame: .zero)
         cardView.delegate = self
         cardView.cardViewModel = user.toCardViewModel()
         cardDeckView.addSubview(cardView)
         cardDeckView.sendSubviewToBack(cardView)
         cardView.fillSuperview()
+        return cardView
     }
     
     func didFinishLoginIn() {
         fetchCurrentUser()
+    }
+    
+    func didRemoveCard(cardView: CardView) {
+        self.topCardView?.removeFromSuperview()
+        self.topCardView = self.topCardView?.nextCardView
     }
     
     func didTapMoreInfo(cardViewModel: CardViewModel) {
@@ -122,6 +135,16 @@ class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDeleg
     
     @objc fileprivate func handleRefresh() {
         fetchUserFromFireStote()
+    }
+    @objc fileprivate func handleLike() {
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: .curveEaseOut, animations: {
+            self.topCardView?.frame = CGRect(x: 600, y: 0, width: self.topCardView!.frame.width, height: self.topCardView!.frame.height)
+            let angle = 15 * CGFloat.pi / 180
+            self.topCardView?.transform = CGAffineTransform(rotationAngle: angle)
+        }) { (_) in
+            self.topCardView?.removeFromSuperview()
+            self.topCardView = self.topCardView?.nextCardView
+        }
     }
     
     func didSaveSettings() {

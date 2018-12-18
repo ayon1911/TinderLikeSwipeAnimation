@@ -11,18 +11,15 @@ import SDWebImage
 
 protocol CardViewDelegate {
     func didTapMoreInfo(cardViewModel: CardViewModel)
+    func didRemoveCard(cardView: CardView)
 }
 
 class CardView: UIView {
     //MARK:- variables
+    var nextCardView: CardView?
     var delegate: CardViewDelegate?
     var cardViewModel: CardViewModel! {
         didSet {
-//            let imageName = cardViewModel.imageUrls.first ?? ""
-//
-//            if let url = URL(string: imageName) {
-//                imageView.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "question-mark").withRenderingMode(.alwaysOriginal), options: .continueInBackground)
-//            }
             informationLabel.attributedText = cardViewModel.attributedtext
             informationLabel.textAlignment = cardViewModel.textAlligenment
             swipePhotoController.cardViewModel = cardViewModel
@@ -40,7 +37,6 @@ class CardView: UIView {
     fileprivate let swipePhotoController = SwipingPhotosVC(isCardViewMode: true)
     
     fileprivate let threshlod: CGFloat = 80
-//    fileprivate let imageView = UIImageView(image: #imageLiteral(resourceName: "gambit"))
     fileprivate let gradientlayer = CAGradientLayer()
     fileprivate let informationLabel = UILabel()
     fileprivate let barsStackView = UIStackView()
@@ -70,8 +66,6 @@ class CardView: UIView {
         swipePhotoView.fillSuperview()
         
         setupGradientLayer()
-//        setupBarsStackView()
-        
         addSubview(informationLabel)
         informationLabel.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 16, bottom: 16, right: 16))
         informationLabel.textColor = .yellow
@@ -109,6 +103,7 @@ class CardView: UIView {
             self.transform = .identity
             if shouldDismissCard {
                 self.removeFromSuperview()
+                self.delegate?.didRemoveCard(cardView: self)
             }
         })
     }
@@ -149,10 +144,6 @@ class CardView: UIView {
     
     fileprivate func setupImageIndexObserver() {
         cardViewModel.imageIndexObserver = { [unowned self] (index, imageUrl) in
-//            if let url = URL(string: imageUrl ?? "") {
-//                self.imageView.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "question-mark").withRenderingMode(.alwaysOriginal), options: .continueInBackground)
-//            }
-            
             self.barsStackView.arrangedSubviews.forEach({ (v) in
                 v.backgroundColor = self.barSelectedColor
             })
