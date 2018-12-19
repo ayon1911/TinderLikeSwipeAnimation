@@ -12,6 +12,7 @@ import SDWebImage
 protocol CardViewDelegate {
     func didTapMoreInfo(cardViewModel: CardViewModel)
     func didRemoveCard(cardView: CardView)
+    func cardDidLike(didLike: Int)
 }
 
 class CardView: UIView {
@@ -92,20 +93,31 @@ class CardView: UIView {
     fileprivate func handlePanEnded(_ gesture: UIPanGestureRecognizer) {
         let traslationalDirection: CGFloat = gesture.translation(in: nil).x > 0 ? 1 : -1
         let shouldDismissCard = abs(gesture.translation(in: nil).x) > threshlod
-        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: .curveEaseOut, animations: {
-            if shouldDismissCard {
-                self.frame = CGRect(x: 600 * traslationalDirection, y: 0, width: self.frame.width, height: self.frame.height)
-
+        if shouldDismissCard {
+            if traslationalDirection == 1 {
+                delegate?.cardDidLike(didLike: 1)
             } else {
+                delegate?.cardDidLike(didLike: 0)
+            }
+        } else {
+            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: .curveEaseOut, animations: {
                 self.transform = .identity
-            }
-        }, completion: { (_) in
-            self.transform = .identity
-            if shouldDismissCard {
-                self.removeFromSuperview()
-                self.delegate?.didRemoveCard(cardView: self)
-            }
-        })
+            })
+        }
+//        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: .curveEaseOut, animations: {
+//            if shouldDismissCard {
+//                self.frame = CGRect(x: 600 * traslationalDirection, y: 0, width: self.frame.width, height: self.frame.height)
+//
+//            } else {
+//                self.transform = .identity
+//            }
+//        }, completion: { (_) in
+//            self.transform = .identity
+//            if shouldDismissCard {
+//                self.removeFromSuperview()
+//                self.delegate?.didRemoveCard(cardView: self)
+//            }
+//        })
     }
     
     fileprivate func setupGradientLayer() {

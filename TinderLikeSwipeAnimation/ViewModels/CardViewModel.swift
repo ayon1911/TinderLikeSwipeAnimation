@@ -18,11 +18,13 @@ class CardViewModel {
     let imageUrls: [String]
     let attributedtext: NSAttributedString
     let textAlligenment: NSTextAlignment
+    let uid: String
     
-    init(imageNames: [String], attributedText: NSAttributedString, textAlligenment: NSTextAlignment) {
+    init(uid: String, imageNames: [String], attributedText: NSAttributedString, textAlligenment: NSTextAlignment) {
         self.imageUrls = imageNames
         self.attributedtext = attributedText
         self.textAlligenment = textAlligenment
+        self.uid = uid
     }
     //variable for reactive state change
     var imageIndexObserver: ((Int, String?) -> ())?

@@ -16,7 +16,6 @@ class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDeleg
     let topNavigationStackView = TopNavigationStackView()
     let bottomControls = HomeBottomControlsStackView()
     let cardDeckView = UIView()
-    
     var cardViewModels = [CardViewModel]()
     //this variable keeps track of the last fetched user so that we can paginate through firebases
     var lastFetchedUser: User?
@@ -61,7 +60,6 @@ class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDeleg
         }
     }
     
-    
     fileprivate func setupMainStackView() {
         view.backgroundColor = .white
         let mainStackView = UIStackView(arrangedSubviews: [topNavigationStackView, cardDeckView , bottomControls])
@@ -87,7 +85,6 @@ class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDeleg
             }
             
             var previousCardView: CardView?
-            
             snapshot?.documents.forEach({ (snapshot) in
                 let userDict = snapshot.data()
                 let user = User(dictionary: userDict)
@@ -139,14 +136,53 @@ class HomeController: UIViewController, SettingsVCDelegate, LoginControllerDeleg
         fetchUserFromFireStote()
     }
     @objc fileprivate func handleLike() {
+        saveSwipeToFirestore(didLike: 1)
         performSwipeAnimation(traslation: 700, angle: 15)
     }
     @objc fileprivate func handleDislike() {
+        saveSwipeToFirestore(didLike: 0)
         performSwipeAnimation(traslation: -700, angle: -15)
     }
     
     func didSaveSettings() {
         fetchCurrentUser()
+    }
+    
+    func cardDidLike(didLike: Int) {
+        if didLike == 1 {
+            handleLike()
+        } else {
+            handleDislike()
+        }
+    }
+    
+    fileprivate func saveSwipeToFirestore(didLike: Int) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let cardUID = topCardView?.cardViewModel.uid else { return }
+        let documentData = [cardUID: didLike]
+        
+        Firestore.firestore().collection("swipes").document(uid).getDocument { (snapshot, error) in
+            if let err = error {
+                print("Failed to fetch swipe data:", err)
+            }
+            if snapshot?.exists == true {
+                Firestore.firestore().collection("swipes").document(uid).updateData(documentData) { (error) in
+                    if let err = error {
+                        print("Failed to save swipe data:", err)
+                        return
+                    }
+                    print("Successfully Updated swipe data ")
+                }
+            } else {
+                Firestore.firestore().collection("swipes").document(uid).setData(documentData) { (error) in
+                    if let err = error {
+                        print("Failed to save swipe data:", err)
+                        return
+                    }
+                    print("Successfully save swipe data ")
+                }
+            }
+        }
     }
     
     fileprivate func performSwipeAnimation(traslation: CGFloat, angle: CGFloat) {
