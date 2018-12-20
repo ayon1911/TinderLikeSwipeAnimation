@@ -264,6 +264,10 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
         imageButton?.setImage(selectedImage?.withRenderingMode(.alwaysOriginal), for: .normal)
         dismiss(animated: true, completion: nil)
         
+       setImageToFireStore(selectedImage, imageButton)
+    }
+    
+    fileprivate func setImageToFireStore(_ selectedImage: UIImage?, _ imageButton: UIButton?) {
         let filename = UUID().uuidString
         let ref = Storage.storage().reference(withPath: "/image/\(filename)")
         guard let uploadData = selectedImage?.jpegData(compressionQuality: 0.75) else { return }

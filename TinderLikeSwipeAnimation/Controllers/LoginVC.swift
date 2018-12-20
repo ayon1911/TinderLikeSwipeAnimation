@@ -86,7 +86,8 @@ class LoginVC: UIViewController {
         
         view.addSubview(backButton)
         backButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.trailingAnchor)
-        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+        listenNotificationObservers()
     }
     
     fileprivate func setupGradientlayer() {
@@ -113,6 +114,34 @@ class LoginVC: UIViewController {
                 self.loginHUD.dismiss()
             }
         }
+    }
+    
+    @objc fileprivate func handleTap() {
+        view.endEditing(true)
+    }
+    
+    fileprivate func listenNotificationObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc fileprivate func handleKeyboardShow(notification: Notification) {
+        guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let keyboardFrame = value.cgRectValue
+        print(keyboardFrame)
+        
+        let bottomSpace = view.frame.height - verticalStackView.frame.origin.y - verticalStackView.frame.height
+        print(bottomSpace)
+        
+        let delta = keyboardFrame.height - bottomSpace + 8
+        self.view.transform = CGAffineTransform(translationX: 0, y: -delta)
+    }
+    
+    
+    @objc fileprivate func handleKeyboardHide() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.transform = .identity
+        }, completion: nil)
     }
     
     //MARK: - HANDLERS

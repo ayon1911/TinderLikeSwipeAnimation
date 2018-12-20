@@ -104,20 +104,6 @@ class CardView: UIView {
                 self.transform = .identity
             })
         }
-//        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: .curveEaseOut, animations: {
-//            if shouldDismissCard {
-//                self.frame = CGRect(x: 600 * traslationalDirection, y: 0, width: self.frame.width, height: self.frame.height)
-//
-//            } else {
-//                self.transform = .identity
-//            }
-//        }, completion: { (_) in
-//            self.transform = .identity
-//            if shouldDismissCard {
-//                self.removeFromSuperview()
-//                self.delegate?.didRemoveCard(cardView: self)
-//            }
-//        })
     }
     
     fileprivate func setupGradientLayer() {
