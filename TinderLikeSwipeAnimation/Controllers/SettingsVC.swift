@@ -19,6 +19,7 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
     //MARK:- Variables
     var delegate: SettingsVCDelegate?
     var user: User?
+    let settingsViewModel = SettingsViewModel()
 
     lazy var image1Button = createButton(selector: #selector(handleSelectPhoto))
     lazy var image2Button = createButton(selector: #selector(handleSelectPhoto))
@@ -63,6 +64,7 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
         
         fetchCurrentuser()
     }
+    
     //MARK:- TABELVIEW DELEGATE AND DATASOURCE
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerLabel = HeaderLabel()
@@ -102,13 +104,13 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
             ageRangeCell.minSlider.addTarget(self, action: #selector(handleMinAgeRange), for: .valueChanged)
             ageRangeCell.maxSlider.addTarget(self, action: #selector(handleMaxAgeRange), for: .valueChanged)
             
-            let minAge = user?.minAge ?? DEFAULT_MIN_AGE
-            let maxAge = user?.maxAge ?? DEFAULT_MAX_AGE
-            
-            ageRangeCell.minLabel.text = "Min \(minAge)"
-            ageRangeCell.minSlider.value = Float(maxAge)
-            ageRangeCell.maxLabel.text = "Max \(minAge)"
-            ageRangeCell.maxSlider.value = Float(maxAge)
+//            let minAge = user?.minAge ?? DEFAULT_MIN_AGE
+//            let maxAge = user?.maxAge ?? DEFAULT_MAX_AGE
+
+            ageRangeCell.minLabel.text = "Min \(settingsViewModel.minAge)"
+            ageRangeCell.minSlider.value = Float(settingsViewModel.minAge)
+            ageRangeCell.maxLabel.text = "Max \(settingsViewModel.maxAge)"
+            ageRangeCell.maxSlider.value = Float(settingsViewModel.maxAge)
             return ageRangeCell
         }
         
@@ -152,23 +154,11 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
             }
             self.user = user
             self.loadUserPhotos()
+            self.setupSettingsViewModelObserver()
             self.tableView.reloadData()
         }
     }
-    
-    fileprivate func evaluateMinMax() {
-        guard let ageRangeCell = tableView.cellForRow(at: [5, 0]) as? AgeRangeCell else { return }
-        let minValue = Int(ageRangeCell.minSlider.value)
-        var maxValue = Int(ageRangeCell.maxSlider.value)
-        maxValue = max(minValue, maxValue)
-        ageRangeCell.maxSlider.value = Float(maxValue)
-        ageRangeCell.minLabel.text = "Min \(minValue)"
-        ageRangeCell.maxLabel.text = "Max \(maxValue)"
-        
-        user?.minAge = minValue
-        user?.maxAge = maxValue
-    }
-    
+
     fileprivate func loadUserPhotos() {
         if let imageUrl = user?.imageUrl1, let url = URL(string: imageUrl) {
             SDWebImageManager.shared().loadImage(with: url, options: .continueInBackground, progress: nil) { (image, _, _, _, _, _) in
@@ -189,11 +179,11 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
     
     //MARK:- HANDLER FUNCTIONS
     @objc fileprivate func handleMinAgeRange(slider: UISlider) {
-        evaluateMinMax()
+        settingsViewModel.minAge = Int(slider.value)
     }
     
     @objc fileprivate func handleMaxAgeRange(slider: UISlider) {
-        evaluateMinMax()
+        settingsViewModel.maxAge = Int(slider.value)
     }
     
     @objc fileprivate func handleNameChange(textField: UITextField) {
@@ -216,8 +206,8 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
             "imageUrl1": user?.imageUrl1 ?? "",
             "imageUrl2": user?.imageUrl2 ?? "",
             "imageUrl3": user?.imageUrl3 ?? "",
-            "minAge": user?.minAge ?? -1,
-            "maxAge": user?.maxAge ?? -1
+            "minAge": settingsViewModel.minAge,
+            "maxAge": settingsViewModel.maxAge
         ]
         let hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = "Saving  settings"
@@ -248,6 +238,23 @@ class SettingsVC: UITableViewController, UIImagePickerControllerDelegate, UINavi
         imagePicker.delegate = self
         imagePicker.imageButton = button
         present(imagePicker, animated: true, completion: nil)
+    }
+    
+    fileprivate func setupSettingsViewModelObserver() {
+        if let user = user {
+            settingsViewModel.minAge = user.minAge ?? DEFAULT_MIN_AGE
+            settingsViewModel.maxAge = user.maxAge ?? DEFAULT_MAX_AGE
+            settingsViewModel.bindableAge.bind { [unowned self] (ageRange) in
+                guard let ageRange = ageRange else { return }
+                let indexPath = IndexPath(row: 0, section: 5)
+                guard let cell = self.tableView.cellForRow(at: indexPath) as? AgeRangeCell else { return }
+                let (minAge, maxAge) = (ageRange.min, ageRange.max)
+                cell.minLabel.text = "Min \(minAge)"
+                cell.maxLabel.text = "Max \(maxAge)"
+                cell.minSlider.value = Float(minAge)
+                cell.maxSlider.value = Float(maxAge)
+            }
+        }
     }
 
     //MARK:- IMAGE PICKER

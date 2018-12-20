@@ -9,4 +9,4 @@
 import Foundation
 
 let DEFAULT_MIN_AGE = 18
-let DEFAULT_MAX_AGE = 50
+let DEFAULT_MAX_AGE = 88
