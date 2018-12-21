@@ -37,6 +37,7 @@
 		B6F0091421AD5A57002133BD /* FetchUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F0091321AD5A57002133BD /* FetchUserService.swift */; };
 		B6F0091621AD7D1B002133BD /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F0091521AD7D1B002133BD /* LoginVC.swift */; };
 		B6F0091821AD8E2C002133BD /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F0091721AD8E2C002133BD /* LoginViewModel.swift */; };
+		B6FC54E121CCE07900F4C730 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FC54E021CCE07900F4C730 /* MatchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		B6F0091321AD5A57002133BD /* FetchUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserService.swift; sourceTree = "<group>"; };
 		B6F0091521AD7D1B002133BD /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		B6F0091721AD8E2C002133BD /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		B6FC54E021CCE07900F4C730 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
 		EF6887F8F8E6B9D96CB1E5A5 /* Pods-TinderLikeSwipeAnimation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinderLikeSwipeAnimation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TinderLikeSwipeAnimation/Pods-TinderLikeSwipeAnimation.debug.xcconfig"; sourceTree = "<group>"; };
 		F499B13F50DE6F2F834FD610 /* Pods_TinderLikeSwipeAnimation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TinderLikeSwipeAnimation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -160,6 +162,7 @@
 				B62E156B21999C240011A05E /* CustomTextField.swift */,
 				B6265B7821A6A7DD00D95BCE /* SettingsCell.swift */,
 				B6F0090F21AC0B33002133BD /* AgeRangeCell.swift */,
+				B6FC54E021CCE07900F4C730 /* MatchView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				B62E156C21999C240011A05E /* CustomTextField.swift in Sources */,
 				B69BE2342192DBAF007994D1 /* HomeBottomControlsStackView.swift in Sources */,
 				B6F0091021AC0B33002133BD /* AgeRangeCell.swift in Sources */,
+				B6FC54E121CCE07900F4C730 /* MatchView.swift in Sources */,
 				B6397F7621CB8F870039DF3E /* SettingsViewModel.swift in Sources */,
 				B6F0091821AD8E2C002133BD /* LoginViewModel.swift in Sources */,
 				B68FF3A121C2AE6000828B05 /* Constant.swift in Sources */,

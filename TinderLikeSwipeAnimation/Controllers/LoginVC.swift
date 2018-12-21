@@ -147,7 +147,7 @@ class LoginVC: UIViewController {
     //MARK: - HANDLERS
     @objc fileprivate func handleLogin() {
         loginViewModel.performLogin { (error) in
-            self.loginHUD.dismiss()
+//            self.loginHUD.dismiss()
             if let err = error {
                 print("failed to login", err)
                 return
