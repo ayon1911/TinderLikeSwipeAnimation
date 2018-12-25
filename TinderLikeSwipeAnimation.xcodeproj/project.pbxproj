@@ -16,9 +16,11 @@
 		B62E156A219994F30011A05E /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62E1569219994F30011A05E /* RegistrationVC.swift */; };
 		B62E156C21999C240011A05E /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62E156B21999C240011A05E /* CustomTextField.swift */; };
 		B6397F7621CB8F870039DF3E /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6397F7521CB8F870039DF3E /* SettingsViewModel.swift */; };
+		B65970F021D0F8F100089DF4 /* SendMessageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65970EF21D0F8F100089DF4 /* SendMessageButton.swift */; };
 		B66FC7D521A6105B00595ACA /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66FC7D421A6105B00595ACA /* SettingsVC.swift */; };
 		B672C79D219EDB2A00D156EA /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B672C79C219EDB2A00D156EA /* Bindable.swift */; };
 		B672C7A0219EF0ED00D156EA /* RegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B672C79F219EF0ED00D156EA /* RegisterService.swift */; };
+		B67F8A0021D23ED400321AA3 /* KeepSwipingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67F89FF21D23ED400321AA3 /* KeepSwipingButton.swift */; };
 		B68FF3A121C2AE6000828B05 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68FF3A021C2AE6000828B05 /* Constant.swift */; };
 		B68FF3A321C30B4700828B05 /* PhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68FF3A221C30B4700828B05 /* PhotoController.swift */; };
 		B69BE21E2192D46B007994D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69BE21D2192D46B007994D1 /* AppDelegate.swift */; };
@@ -50,9 +52,11 @@
 		B62E1569219994F30011A05E /* RegistrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationVC.swift; sourceTree = "<group>"; };
 		B62E156B21999C240011A05E /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		B6397F7521CB8F870039DF3E /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		B65970EF21D0F8F100089DF4 /* SendMessageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageButton.swift; sourceTree = "<group>"; };
 		B66FC7D421A6105B00595ACA /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		B672C79C219EDB2A00D156EA /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		B672C79F219EF0ED00D156EA /* RegisterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterService.swift; sourceTree = "<group>"; };
+		B67F89FF21D23ED400321AA3 /* KeepSwipingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepSwipingButton.swift; sourceTree = "<group>"; };
 		B68FF3A021C2AE6000828B05 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		B68FF3A221C30B4700828B05 /* PhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoController.swift; sourceTree = "<group>"; };
 		B69BE21A2192D46B007994D1 /* TinderLikeSwipeAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinderLikeSwipeAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,6 +167,8 @@
 				B6265B7821A6A7DD00D95BCE /* SettingsCell.swift */,
 				B6F0090F21AC0B33002133BD /* AgeRangeCell.swift */,
 				B6FC54E021CCE07900F4C730 /* MatchView.swift */,
+				B65970EF21D0F8F100089DF4 /* SendMessageButton.swift */,
+				B67F89FF21D23ED400321AA3 /* KeepSwipingButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -373,8 +379,10 @@
 				B68FF3A321C30B4700828B05 /* PhotoController.swift in Sources */,
 				B62E156C21999C240011A05E /* CustomTextField.swift in Sources */,
 				B69BE2342192DBAF007994D1 /* HomeBottomControlsStackView.swift in Sources */,
+				B65970F021D0F8F100089DF4 /* SendMessageButton.swift in Sources */,
 				B6F0091021AC0B33002133BD /* AgeRangeCell.swift in Sources */,
 				B6FC54E121CCE07900F4C730 /* MatchView.swift in Sources */,
+				B67F8A0021D23ED400321AA3 /* KeepSwipingButton.swift in Sources */,
 				B6397F7621CB8F870039DF3E /* SettingsViewModel.swift in Sources */,
 				B6F0091821AD8E2C002133BD /* LoginViewModel.swift in Sources */,
 				B68FF3A121C2AE6000828B05 /* Constant.swift in Sources */,

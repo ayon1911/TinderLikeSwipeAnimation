@@ -29,6 +29,36 @@ class MatchView: UIView {
         imageView.layer.borderColor = UIColor.white.cgColor
         return imageView
     }()
+    fileprivate let itsMatchView: UIImageView = {
+       let imageView = UIImageView(image: #imageLiteral(resourceName: "itsamatch"))
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+    fileprivate let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.text = """
+            You and X have liked
+            each other
+        """
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont(name: "AvenirNext-Medium", size: 20)
+        label.numberOfLines = 0
+        return label
+    }()
+    fileprivate let sendMessageButton: UIButton = {
+        let button = SendMessageButton(type: .system)
+        button.setTitle("SEND MESSAGE", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        return button
+    }()
+    fileprivate let keepSwipeButton: UIButton = {
+        let button = KeepSwipingButton(type: .system)
+        button.setTitle("KEEP SWIPE", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+//        button.backgroundColor = .yellow
+        return button
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,12 +68,25 @@ class MatchView: UIView {
     }
     
     fileprivate func setupLayout() {
+        addSubview(itsMatchView)
+        addSubview(descriptionLabel)
         addSubview(currentImageView)
         addSubview(cardUserView)
+        addSubview(sendMessageButton)
+        addSubview(keepSwipeButton)
+        
+        itsMatchView.anchor(top: nil, leading: nil, bottom: descriptionLabel.topAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 16, right: 0), size: .init(width: 300, height: 80))
+        itsMatchView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        
+        descriptionLabel.anchor(top: nil, leading: leadingAnchor, bottom: currentImageView.topAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 16, bottom: 32, right: 16), size: .init(width: 0, height: 50))
+        
         currentImageView.anchor(top: nil, leading: nil, bottom: nil, trailing: centerXAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 12), size: .init(width: 140, height: 140))
         currentImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         cardUserView.anchor(top: nil, leading: centerXAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 12, bottom: 0, right: 0), size: .init(width: 140, height: 140))
         cardUserView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        
+        sendMessageButton.anchor(top: currentImageView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 32, left: 48, bottom: 0, right: 48), size: .init(width: 0, height: 50))
+        keepSwipeButton.anchor(top: sendMessageButton.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 32, left: 48, bottom: 0, right: 48), size: .init(width: 0, height: 50))
     }
     
     fileprivate func setupBlurView() {
