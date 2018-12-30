@@ -21,7 +21,7 @@ class MatchView: UIView {
         return imageView
     }()
     fileprivate let cardUserView: UIImageView = {
-        let imageView = UIImageView(image: #imageLiteral(resourceName: "peter"))
+        let imageView = UIImageView(image: #imageLiteral(resourceName: "logan"))
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 140 / 2
         imageView.clipsToBounds = true
@@ -65,6 +65,32 @@ class MatchView: UIView {
         
         setupBlurView()
         setupLayout()
+        setupAnimation()
+    }
+    
+    fileprivate func setupAnimation() {
+        let angel = 30 * CGFloat.pi / 180
+        currentImageView.transform = CGAffineTransform(rotationAngle: -angel).concatenating(CGAffineTransform(translationX: 200, y: 0))
+        cardUserView.transform = CGAffineTransform(rotationAngle: angel).concatenating(CGAffineTransform(translationX: -200, y: 0))
+        sendMessageButton.transform = CGAffineTransform(translationX: -500, y: 0)
+        keepSwipeButton.transform = CGAffineTransform(translationX: 500, y: 0)
+        //keyframe animetion helps to break down animations into segments of animation
+        UIView.animateKeyframes(withDuration: 1.2, delay: 0, options: .calculationModeCubic, animations: {
+            //translation animation
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations: {
+                self.currentImageView.transform = CGAffineTransform(rotationAngle: -angel)
+                self.cardUserView.transform = CGAffineTransform(rotationAngle: angel)
+            })
+            //rotation animation
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations: {
+                self.currentImageView.transform = .identity
+                self.cardUserView.transform = .identity
+            })
+        })
+        UIView.animate(withDuration: 0.5, delay: 0.6, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.2, options: .curveEaseIn, animations: {
+            self.sendMessageButton.transform = .identity
+            self.keepSwipeButton.transform = .identity
+        })
     }
     
     fileprivate func setupLayout() {
